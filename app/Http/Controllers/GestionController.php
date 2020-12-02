@@ -154,10 +154,11 @@ class GestionController extends Controller
         $entry->author_id = \Auth::user()->id;
         $entry->image_path = $upldimg['data']['url'];
         $entry->save();
-
-        $cats = explode(',', $request->categorias);
-        foreach($cats as $cat){
-            $entry->categorias()->attach($cat);
+        if($request->categorias!=null||$request->categorias!=''){
+            $cats = explode(',', $request->categorias);
+            foreach($cats as $cat){
+                $entry->categorias()->attach($cat);
+            }
         }
 
         return response()->json([
@@ -190,10 +191,13 @@ class GestionController extends Controller
         $entry->save();
 
         $entry->categorias()->detach();
-        $cats = explode(',', $request->categorias);
-        foreach($cats as $cat){
-            $entry->categorias()->attach($cat);
+        if($request->categorias!=null||$request->categorias!=''){
+            $cats = explode(',', $request->categorias);
+            foreach($cats as $cat){
+                $entry->categorias()->attach($cat);
+            }
         }
+
 
         return response()->json([
             'status' => 'ok',
