@@ -8,6 +8,7 @@
         <link rel="icon" href="img/favicon.png" type="image/png">
         <title>Web personal - Jesús Moris</title>
         <!-- Bootstrap CSS -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="/css/bootstrap.css">
         <link rel="stylesheet" href="/vendors/linericon/style.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">

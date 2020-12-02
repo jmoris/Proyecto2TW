@@ -16,6 +16,20 @@ class WebController extends Controller
         return view('web_principal.contacto');
     }
 
+    public function enviarContacto(Request $request){
+        $name = $request->name;
+	    $email = $request->email;
+	    $subject = $request->subject;
+	    $message = $request->message;
+	    $to = "jesus@soluciontotal.cl";
+
+		$headers = 'From: ' . $email .  "\r\n" .
+			'Reply-To: ' . $to . "\r\n" .
+			'X-Mailer: PHP/' . phpversion();
+
+		mail($email, $subject, $message, $headers);
+    }
+
     public function blog(Request $request){
         $entry = null;
         if(isset($request->category)){

@@ -60,7 +60,8 @@ $(document).ready(function(){
                       $(form).ajaxSubmit({
                     type:"POST",
                     data: $(form).serialize(),
-                    url:"welcome/envio_contacto",
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    url:"/contacto",
                     success: function() {
                         $('#contactForm :input').attr('disabled', 'disabled');
                         $('#contactForm').fadeTo( "slow", 1, function() {

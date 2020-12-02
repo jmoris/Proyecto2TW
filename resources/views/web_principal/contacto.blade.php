@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-lg-9">
-                        <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <form class="row contact_form" method="post" id="contactForm" novalidate="novalidate">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Introduce tu nombre">
@@ -116,5 +116,6 @@
 @endsection
 
 @section('scripts')
+<script src="/js/contact.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LcjyOIZAAAAADbTe1o5qnWv7GsjGnFW2e-oiLWS"></script>
 @endsection
