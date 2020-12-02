@@ -53,5 +53,6 @@
         <script src="/js/gmaps.min.js"></script>
         <script src="/js/theme.js"></script>
         <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5fc6a8e9cabef10011d3fa3e&product=inline-share-buttons" async="async"></script>
+        @yield('scripts')
     </body>
 </html>

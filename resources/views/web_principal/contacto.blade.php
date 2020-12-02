@@ -114,3 +114,7 @@
         </div>
         <!--================End Contact Success and Error message Area =================-->
 @endsection
+
+@section('scripts')
+<script src="https://www.google.com/recaptcha/api.js?render=6LcjyOIZAAAAADbTe1o5qnWv7GsjGnFW2e-oiLWS"></script>
+@endsection

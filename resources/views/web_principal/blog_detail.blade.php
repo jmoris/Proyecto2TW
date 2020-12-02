@@ -27,16 +27,16 @@
                                         @foreach($entrada->categorias as $cat) 
                                             <a href="/blog?category={{$cat->id}}" >{{ $cat->name.(($entrada->categorias[count($entrada->categorias)-1] == $cat) ? '':',')}}</a>
                                         @endforeach
-                                    </div>
+                                </div>
                                 <div class="blog_details pt-0">
                                         <h2>{{$entrada->title}}</h2>
-                                    </div>
-                                    
-                                    <ul style="list-style:none!important;" class="blog_meta list col-md-12 col-lg-12">
+                                </div>
+                                    <ul style="list-style:none!important;display:inline-block;" class="blog_meta list col-md-10 col-lg-10">
                                         <li style="display:inline!important;"><a href="#"><i class="lnr lnr-user"></i> {{ $entrada->user->name }}</a></li>
                                         <li style="display:inline!important;"><a href="#"><i class="lnr lnr-calendar-full"></i> {{ date("F j, Y", strtotime($entrada->created_at)) }}</a></li>
                                         <li style="display:inline!important;"><a href="#"><i class="lnr lnr-eye"></i> {{ $entrada->views }} vistas</a></li>
                                     </ul>
+                                    <div class="pull-right col-md-2 col-lg-2" style="display:inline-block;" id="rateYo"></div>
                                     <!--
                                     <ul class="social-links">
                                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -137,4 +137,19 @@
                 </div>
             </div>
         </section>
+@endsection
+
+@section('scripts')
+
+<script>
+$(document).ready(function(){
+    $("#rateYo").rateYo({
+        rating: 2.5,
+        starWidth: "16px",
+        fullStar: true
+    }).on("rateyo.set", function (e, data) {
+        alert("The rating is set to " + data.rating + "!");
+    });
+});
+</script>
 @endsection
