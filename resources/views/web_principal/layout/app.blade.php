@@ -6,7 +6,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="img/favicon.png" type="image/png">
+        <!-- Primary Meta Tags -->
         <title>Web personal - Jesús Moris</title>
+        <meta name="title" content="Web personal - Jesús Moris">
+        <meta name="description" content="Web con contenido relacionado a mi vida, ya sean mis estudios basicos, medios y superiores. Ademas, de las diferentes experiencias obtenidas a lo largo de la carrera de Ing. Civil En Computacion.">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://jesusmoris.cl/">
+        <meta property="og:title" content="Web personal - Jesús Moris">
+        <meta property="og:description" content="Web con contenido relacionado a mi vida, ya sean mis estudios basicos, medios y superiores. Ademas, de las diferentes experiencias obtenidas a lo largo de la carrera de Ing. Civil En Computacion.">
+        <meta property="og:image" content="/logojm.png">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="http://jesusmoris.cl/">
+        <meta name="twitter:site" content="@jesusmoris">
+        <meta name="twitter:creator" content="@jesusmoris">
+        <meta name="twitter:title" content="Web Personal - Jesús Moris">
+        <meta name="twitter:description" content="Web con contenido relacionado a mi vida, ya sean mis estudios basicos, medios y superiores. Ademas, de las diferentes experiencias obtenidas a lo largo de la carrera de Ing. Civil En Computacion.">
+        <meta name="twitter:image" content="/logojm.png">
+
         <!-- Bootstrap CSS -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="/css/bootstrap.css">
