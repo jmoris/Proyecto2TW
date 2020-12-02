@@ -32,6 +32,7 @@
                                                 <li><a href="#">{{ $entry->user->name }}<i class="lnr lnr-user"></i></a></li>
                                                 <li><a href="#">{{ date("F j, Y", strtotime($entry->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
                                                 <li><a href="#">{{ $entry->views }} vistas<i class="lnr lnr-eye"></i></a></li>
+                                                <li><a href="#">{{ $entry->voteScore/$entry->votes }}<i class="lnr lnr-star"></i></a></li>
                                             </ul>
                                         </div>
                                 </div>

@@ -21,6 +21,8 @@ class CreateEntradasTable extends Migration
             $table->bigInteger('author_id');
             $table->string('image_path')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('votes')->default(0);
+            $table->integer('voteScore')->default(0);
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users');

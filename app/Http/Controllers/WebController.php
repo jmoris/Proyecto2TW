@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Entrada;
 use App\Models\Categoria;
+use \Mailjet\Resources;
 
 class WebController extends Controller
 {
@@ -21,17 +22,38 @@ class WebController extends Controller
 	    $email = $request->email;
 	    $subject = $request->subject;
 	    $message = $request->message;
-	    $to = "jesus@soluciontotal.cl";
 
-		$headers = 'From: ' . $email .  "\r\n" .
-			'Reply-To: ' . $to . "\r\n" .
-			'X-Mailer: PHP/' . phpversion();
-
-        mail($email, $subject, $message, $headers);
+        $mj = new \Mailjet\Client('4bd11c44dbf66e28eeef58f0fd39a4be','b93698430ac0713a4ff1976bf2d33f5c',true,['version' => 'v3.1']);
+        $body = [
+            'Messages' => [
+            [
+                'From' => [
+                'Email' => $email,
+                'Name' => $name
+                ],
+                'To' => [
+                [
+                    'Email' => "jesus@soluciontotal.cl",
+                    'Name' => "Jesus Moris"
+                ]
+                ],
+                'Subject' => $subject,
+                'HTMLPart' => $message,
+            ]
+            ]
+        ];
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
         
-        return response()->json([
-            'status' => 'ok'
-        ]);
+        if($response->success()){
+            return response()->json([
+                'status' => 'ok'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+        
     }
 
     public function blog(Request $request){
@@ -61,5 +83,18 @@ class WebController extends Controller
         $previous = Entrada::find($previous);
         $populars = Entrada::orderBy('views', 'desc')->where('status', true)->limit(4)->get();
         return view('web_principal.blog_detail', ['entrada' => $entrada, 'categorias' => $categories, 'anterior' => $previous, 'siguiente' => $next, 'populares' => $populars]);
+    }
+
+    public function blogRating(Request $request, $id){
+        if($id != null){
+            $entrada = Entrada::find($id);
+            $entrada->votes = $entrada->votes + 1;
+            $entrada->voteScore = round($entrada->voteScore + $request->rating);
+            $entrada->save();
+
+            return response()->json([
+                "rating" => $entrada->voteScore / $entrada->votes
+            ]);
+        }
     }
 }

@@ -143,12 +143,21 @@
 
 <script>
 $(document).ready(function(){
-    $("#rateYo").rateYo({
-        rating: 2.5,
+    var rateyo = $("#rateYo").rateYo({
+        rating: {{ (($entrada->votes>0)?$entrada->voteScore/$entrada->votes:0) }},
         starWidth: "16px",
-        fullStar: true
-    }).on("rateyo.set", function (e, data) {
-        alert("The rating is set to " + data.rating + "!");
+        fullStar: true,
+        onSet: function(rating, rateYoInstance){
+            $.ajax({
+                url: '/blog/{{$entrada->id}}/puntuar',
+                type: 'POST',
+                data: {rating: rating},
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            }).done(function(resp){
+                rateyo.rateYo("rating", resp.rating);
+                rateyo.rateYo('option', 'readOnly',true);
+            });
+        }
     });
 });
 </script>

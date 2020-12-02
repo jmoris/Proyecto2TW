@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-lg-9">
-                        <form class="row contact_form" method="post" id="contactForm" novalidate="novalidate">
+                        <form class="row contact_form" id="contactForm" novalidate="novalidate">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Introduce tu nombre">
@@ -117,16 +117,11 @@
 
 @section('scripts')
 <script src="https://www.google.com/recaptcha/api.js?render=6LcjyOIZAAAAADbTe1o5qnWv7GsjGnFW2e-oiLWS"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 
 <script>
     (function($) {
         "use strict";
-
-    
-    jQuery.validator.addMethod('answercheck', function (value, element) {
-        return this.optional(element) || /^\bcat\b$/.test(value)
-    }, "type the correct answer -_-");
-
     // validate contactForm form
     $(function() {
         $('#contactForm').validate({
