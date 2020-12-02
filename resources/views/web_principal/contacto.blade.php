@@ -179,7 +179,7 @@
                       $(form).ajaxSubmit({
                     type:"POST",
                     data: $(form).serialize(),
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
                     url:"/contacto",
                     success: function() {
                         $('#contactForm :input').attr('disabled', 'disabled');
