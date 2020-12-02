@@ -175,33 +175,32 @@
             },
             submitHandler: function(form) {
                 grecaptcha.ready(function() {
-                  grecaptcha.execute('6LcjyOIZAAAAADbTe1o5qnWv7GsjGnFW2e-oiLWS', {action: 'submit'}).then(function(token) {
-                      $(form).ajaxSubmit({
-                    type:"POST",
-                    data: $(form).serialize(),
-                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                    url:"/contacto",
-                    success: function() {
-                        $('#contactForm :input').attr('disabled', 'disabled');
-                        $('#contactForm').fadeTo( "slow", 1, function() {
-                            $(this).find(':input').attr('disabled', 'disabled');
-                            $(this).find('label').css('cursor','default');
-                            $('#success').fadeIn()
-                            $('.modal').modal('hide');
-		                	$('#success').modal('show');
-                        })
-                    },
-                    error: function() {
-                        $('#contactForm').fadeTo( "slow", 1, function() {
-                            $('#error').fadeIn()
-                            $('.modal').modal('hide');
-		                	$('#error').modal('show');
-                        })
-                    }
-                })
-                  });
+                    grecaptcha.execute('6LcjyOIZAAAAADbTe1o5qnWv7GsjGnFW2e-oiLWS', {action: 'submit'}).then(function(token) {
+                        $.ajax({
+                            data: $(form).serialize(),
+                            url: '/contacto',
+                            type: 'POST',
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        }).done(function(data){
+                            if(data.status == 'ok'){
+                                $('#contactForm :input').attr('disabled', 'disabled');
+                                $('#contactForm').fadeTo( "slow", 1, function() {
+                                    $(this).find(':input').attr('disabled', 'disabled');
+                                    $(this).find('label').css('cursor','default');
+                                    $('#success').fadeIn()
+                                    $('.modal').modal('hide');
+                                    $('#success').modal('show');
+                                });
+                            }else{
+                                $('#contactForm').fadeTo( "slow", 1, function() {
+                                    $('#error').fadeIn()
+                                    $('.modal').modal('hide');
+                                    $('#error').modal('show');
+                                })
+                            }
+                        });
+                    });
                 });
-                
             }
         })
     })

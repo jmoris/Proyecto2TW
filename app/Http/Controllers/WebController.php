@@ -27,7 +27,11 @@ class WebController extends Controller
 			'Reply-To: ' . $to . "\r\n" .
 			'X-Mailer: PHP/' . phpversion();
 
-		mail($email, $subject, $message, $headers);
+        mail($email, $subject, $message, $headers);
+        
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 
     public function blog(Request $request){
