@@ -16,7 +16,7 @@
         <meta property="og:url" content="http://jesusmoris.cl/">
         <meta property="og:title" content="Web personal - Jesús Moris">
         <meta property="og:description" content="Web con contenido relacionado a mi vida, ya sean mis estudios basicos, medios y superiores. Ademas, de las diferentes experiencias obtenidas a lo largo de la carrera de Ing. Civil En Computacion.">
-        <meta property="og:image" content="/logojm.png">
+        <meta property="og:image" content="http://jesusmoris.cl/logojm.png">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
@@ -25,7 +25,7 @@
         <meta name="twitter:creator" content="@jesusmoris">
         <meta name="twitter:title" content="Web Personal - Jesús Moris">
         <meta name="twitter:description" content="Web con contenido relacionado a mi vida, ya sean mis estudios basicos, medios y superiores. Ademas, de las diferentes experiencias obtenidas a lo largo de la carrera de Ing. Civil En Computacion.">
-        <meta name="twitter:image" content="/logojm.png">
+        <meta name="twitter:image" content="http://jesusmoris.cl/logojm.png">
 
         <!-- Bootstrap CSS -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
