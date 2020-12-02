@@ -23,13 +23,32 @@ class WebController extends Controller
 	    $subject = $request->subject;
 	    $message = $request->message;
 
+        $html = '<table style="width:100%; border-collapse: collapse; border: 1px solid gainsboro">
+        <tbody>
+              <tr style="border: 1px solid gainsboro">
+            <td><b>Nombre</b></td>
+            <td>'.$name.'</td>
+                 <td><b>Correo</b></td>
+            <td>'.$email.'</td>
+          </tr>
+          <tr style="border: 1px solid gainsboro">
+            <td><b>Asunto</b></td>
+            <td colspan="3">'.$subject.'</td>
+          </tr>
+          <tr>
+            <td><b>Mensaje</b></td>
+            <td colspan="3">'.$message.'</td>
+          </tr>
+        </tbody>
+      </table>';
+        
         $mj = new \Mailjet\Client('4bd11c44dbf66e28eeef58f0fd39a4be','b93698430ac0713a4ff1976bf2d33f5c',true,['version' => 'v3.1']);
         $body = [
             'Messages' => [
             [
                 'From' => [
-                'Email' => $email,
-                'Name' => $name
+                'Email' => 'no-reply@jesusmoris.cl',
+                'Name' => 'Contacto Jesus Moris'
                 ],
                 'To' => [
                 [
@@ -37,8 +56,8 @@ class WebController extends Controller
                     'Name' => "Jesus Moris"
                 ]
                 ],
-                'Subject' => $subject,
-                'HTMLPart' => $message,
+                'Subject' => 'Solicitud de contacto desde la web',
+                'HTMLPart' => $html,
             ]
             ]
         ];
