@@ -56,12 +56,14 @@
                     <div class="col-lg-4">
                         <div class="blog_right_sidebar">
                             <aside class="single_sidebar_widget search_widget">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Buscar entradas">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                                    </span>
-                                </div><!-- /input-group -->
+                                <form method="get">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" placeholder="Buscar entradas">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </form> 
                                 <div class="br"></div>
                             </aside>
                             <aside class="single_sidebar_widget popular_post_widget">

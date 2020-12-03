@@ -83,11 +83,21 @@ class WebController extends Controller
         $config = Configuracion::first();
         if(isset($request->category)){
             $categoria = Categoria::find($request->category);
-            $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->whereHas('categorias', function($q) use($categoria){
-                return $q->where('categorias.id', $categoria->id);
-            })->paginate($config->nro_entradas);
+            if(isset($request->search)){
+                $entry = Entrada::where('status', true)->where('title', 'like', '%'.$request->search.'%')->orderBy('created_at', 'desc')->whereHas('categorias', function($q) use($categoria){
+                    return $q->where('categorias.id', $categoria->id);
+                })->paginate($config->nro_entradas);
+            }else{
+                $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->whereHas('categorias', function($q) use($categoria){
+                    return $q->where('categorias.id', $categoria->id);
+                })->paginate($config->nro_entradas);
+            }
         }else{
-            $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->paginate($config->nro_entradas);
+            if(isset($request->search)){
+                $entry = Entrada::where('status', true)->where('title', 'like', '%'.$request->search.'%')->orderBy('created_at', 'desc')->paginate($config->nro_entradas);
+            }else{
+                $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->paginate($config->nro_entradas);
+            }
         }
         $categories = Categoria::all();
         $filtro = $config->filtro_populares;
