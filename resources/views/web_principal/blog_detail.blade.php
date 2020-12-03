@@ -3,7 +3,7 @@
 @section('contenido')
 
         <!--================Blog Categorie Area =================-->
-        <section class="blog_categorie_area">
+        <section class="blog_categorie_area d-none d-sm-block">
         </section>
         <!--================Blog Categorie Area =================-->
         

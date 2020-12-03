@@ -29,7 +29,8 @@
 
         <!-- Bootstrap CSS -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/vendors/linericon/style.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/vendors/owl-carousel/owl.carousel.min.css">
@@ -40,7 +41,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@700&display=swap" rel="stylesheet">
         <!-- main css -->
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style.min.css">
         <link rel="stylesheet" href="/css/responsive.css">
     </head>
     <body>
@@ -52,7 +53,6 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="/js/jquery-3.2.1.min.js"></script>
         <script src="/js/popper.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
         <script src="/js/stellar.js"></script>
         <script src="/vendors/lightbox/simpleLightbox.min.js"></script>
         <script src="/vendors/nice-select/js/jquery.nice-select.min.js"></script>
