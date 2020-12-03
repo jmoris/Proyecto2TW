@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="/vendors/owl-carousel/owl.carousel.min.css">
         <link rel="stylesheet" href="/vendors/lightbox/simpleLightbox.css">
         <link rel="stylesheet" href="/vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="/vendors/animate-css/animate.css">
+        <link rel="stylesheet" href="/vendors/animate-css/animate.min.css" media="print" onload="this.media='all'; this.onload=null;">
 		<link rel="stylesheet" href="/vendors/flaticon/flaticon.css">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@700&display=swap" rel="stylesheet">
