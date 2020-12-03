@@ -30,13 +30,12 @@
         <!-- Bootstrap CSS -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/vendors/linericon/style.min.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/vendors/owl-carousel/owl.carousel.min.css">
         <link rel="stylesheet" href="/vendors/lightbox/simpleLightbox.css">
         <link rel="stylesheet" href="/vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="/vendors/animate-css/animate.min.css" media="print" onload="this.media='all'; this.onload=null;">
+        <link rel="stylesheet" href="/vendors/animate-css/animate.min.css">
 		<link rel="stylesheet" href="/vendors/flaticon/flaticon.css">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@700&display=swap" rel="stylesheet">
@@ -53,6 +52,7 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="/js/jquery-3.2.1.min.js"></script>
         <script src="/js/popper.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="/js/stellar.js"></script>
         <script src="/vendors/lightbox/simpleLightbox.min.js"></script>
         <script src="/vendors/nice-select/js/jquery.nice-select.min.js"></script>
