@@ -67,7 +67,7 @@
                                                     <label for="filtroPopuplares">Filtro entradas populares</label>
                                                     <select class="form-control" id="filtroPopulares">
                                                         <option value="0" {{ (($config->filtro_populares==0)?'selected':'') }}>Vistas</option>
-                                                        <option value="1" {{ (($config->filtro_populares==1)?'selected':'') }}>Rating</option>
+                                                        <option value="1" {{ (($config->filtro_populares==1)?'selected':'') }}>Puntuación</option>
                                                     </select>
                                                 </div>
                                                 <div class="mt-5 text-center">

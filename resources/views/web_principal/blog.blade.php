@@ -3,7 +3,7 @@
 @section('contenido')
 
         <!--================Blog Categorie Area =================-->
-        <section class="blog_categorie_area">
+        <section class="blog_categorie_area d-none d-sm-block">
         </section>
         <!--================Blog Categorie Area =================-->
         
@@ -75,10 +75,6 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                <div class="br"></div>
-                            </aside>
-                            <aside class="single_sidebar_widget ads_widget">
-                                <a href="#"><img class="img-fluid" src="img/blog/add.jpg" alt=""></a>
                                 <div class="br"></div>
                             </aside>
                             <aside class="single_sidebar_widget post_category_widget">
