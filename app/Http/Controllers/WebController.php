@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Entrada;
 use App\Models\Categoria;
+use App\Models\Configuracion;
 use \Mailjet\Resources;
+use Illuminate\Support\Facades\Config;
 
 class WebController extends Controller
 {
@@ -77,16 +79,23 @@ class WebController extends Controller
 
     public function blog(Request $request){
         $entry = null;
+        $populars = null;
+        $config = Configuracion::first();
         if(isset($request->category)){
             $categoria = Categoria::find($request->category);
             $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->whereHas('categorias', function($q) use($categoria){
                 return $q->where('categorias.id', $categoria->id);
-            })->paginate(3);
+            })->paginate($config->nro_entradas);
         }else{
-            $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->paginate(3);
+            $entry = Entrada::where('status', true)->orderBy('created_at', 'desc')->paginate($config->nro_entradas);
         }
         $categories = Categoria::all();
-        $populars = Entrada::orderBy('views', 'desc')->where('status', true)->limit(4)->get();
+        $filtro = $config->filtro_populares;
+        if($filtro == 0){
+            $populars = Entrada::orderBy('views', 'desc')->where('status', true)->limit(4)->get();
+        }else{
+            $populars = Entrada::where('status', true)->addSelect(\DB::raw('*, (CASE WHEN votes=0 THEN 0 WHEN votes>0 THEN votescore/votes END) as rating'))->orderByRaw('rating desc')->limit(4)->get();
+        }
         return view('web_principal.blog', ['entradas' => $entry, 'categorias' => $categories, 'populares' => $populars]);
     }
 
@@ -108,11 +117,11 @@ class WebController extends Controller
         if($id != null){
             $entrada = Entrada::find($id);
             $entrada->votes = $entrada->votes + 1;
-            $entrada->voteScore = round($entrada->voteScore + $request->rating);
+            $entrada->votescore = round($entrada->votescore + $request->rating);
             $entrada->save();
 
             return response()->json([
-                "rating" => $entrada->voteScore / $entrada->votes
+                "rating" => $entrada->votescore / $entrada->votes
             ]);
         }
     }

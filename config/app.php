@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Santiago',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'es_CL',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,6 +133,13 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+    /*
+    |   Configuraciones blog
+    */
+    'nro_entradas' => 3,
+
+    'filtro_populares' => 1,
 
     'providers' => [
 

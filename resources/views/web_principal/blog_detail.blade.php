@@ -144,7 +144,7 @@
 <script>
 $(document).ready(function(){
     var rateyo = $("#rateYo").rateYo({
-        rating: {{ (($entrada->votes>0)?$entrada->voteScore/$entrada->votes:0) }},
+        rating: {{ (($entrada->votes>0)?$entrada->votescore/$entrada->votes:0) }},
         starWidth: "16px",
         fullStar: true,
         onSet: function(rating, rateYoInstance){

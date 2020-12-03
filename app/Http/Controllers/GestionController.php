@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Entrada;
 use App\Models\User;
 use App\Models\Categoria;
+use App\Models\Configuracion;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
 
 class GestionController extends Controller
 {
@@ -233,8 +235,62 @@ class GestionController extends Controller
     }
 
     public function vistaConfiguraciones(){
-        return view('gestion.configuraciones');
+        $categorias = Categoria::all();
+        $config = Configuracion::first();
+
+        return view('gestion.configuraciones', ['categorias' => $categorias, 'config' => $config]);
     }
+
+    public function addCategoria(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Todos los campos son requeridos.'
+            ], 400);
+        }
+        $entry = new Categoria();
+        $entry->name = $request->name;
+        $entry->save();
+
+        return response()->json([
+            'status' => 'ok',
+            'msg' => 'Categoria creada exitosamente.'
+        ], 200);
+    }
+
+    public function deleteCategoria(Request $request, $id){
+        if($id != null){
+            $entry = Categoria::find($id);
+            $entry->delete();
+            return response()->json([
+                'status' => 'ok',
+                'msg' => 'Categoria eliminada exitosamente.'
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Todos los campos son requeridos.'
+            ], 400);
+        }
+    }
+
+    public function saveConfigBlog(Request $request){
+        $config = Configuracion::first();
+        $config->nro_entradas = $request->nro_entradas;
+        $config->filtro_populares = $request->filtro_populares;
+        $config->save();
+        return response()->json([
+            'status' => 'ok',
+            'msg' => 'Configuración del blog cambiada exitosamente.',
+            'nro' => $request->nro_entradas
+        ], 200);
+    }
+
+
+
 
     private function save_record_image($image,$name = null){
         $API_KEY = 'bf5ce7990d902d8460a27bed8687799b';

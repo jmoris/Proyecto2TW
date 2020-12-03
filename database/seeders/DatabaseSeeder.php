@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Configuracion;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,5 +39,11 @@ class DatabaseSeeder extends Seeder
         $admin->givePermissionTo(['view user', 'create user', 'delete user', 'create entry', 'delete entry', 'view entry']);
         $escritor->givePermissionTo(['create entry', 'view entry', 'delete entry']);
         $user->assignRole('superadmin');
-    }
+
+        $config = new Configuracion();
+        $config->nro_entradas = 3;
+        $config->filtro_populares = 0;
+        $config->save();
+
+    }   
 }

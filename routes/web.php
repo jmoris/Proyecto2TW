@@ -26,6 +26,9 @@ Route::prefix('gestion')->middleware(['auth', 'checkuser'])->group(function () {
     Route::get('/home', [App\Http\Controllers\GestionController::class, 'index']);
     Route::middleware('role:superadmin')->group(function () {
         Route::get('/configuracion', [App\Http\Controllers\GestionController::class, 'vistaConfiguraciones']);
+        Route::post('/configuracion/blog', [App\Http\Controllers\GestionController::class, 'saveConfigBlog']);
+        Route::post('/configuracion/categoria', [App\Http\Controllers\GestionController::class, 'addCategoria']);
+        Route::post('/configuracion/categoria/{id}', [App\Http\Controllers\GestionController::class, 'deleteCategoria']);
     });
     Route::middleware('role:superadmin|admin')->group(function () {
         Route::get('/usuarios', [App\Http\Controllers\GestionController::class, 'vistaUsuarios']);
