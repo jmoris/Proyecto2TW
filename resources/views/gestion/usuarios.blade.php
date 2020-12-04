@@ -87,31 +87,31 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-md-4 col-form-label">Nombre</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Nombre" required>
+                                <input type="text" class="form-control" id="inputNameN" placeholder="Nombre" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-md-4 col-form-label">Email</label>
                             <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                                <input type="email" class="form-control" id="inputEmailN" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Password</label>
                             <div class="col-md-8">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                <input type="password" class="form-control" id="inputPasswordN" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Fecha de nacimiento</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputDate" placeholder="Fecha de nacimiento" required>
+                                <input type="text" class="form-control" id="inputDOB" placeholder="Fecha de nacimiento" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Rol</label>
                             <div class="col-md-8">
-                                <select class="form-control" id="inputRol" required>
+                                <select class="form-control" id="inputRolN" required>
                                     <option value="">Seleccione un rol</option>
                                     @role('superadmin')
                                     <option value="1">Superadministrador</option>
@@ -146,25 +146,25 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-md-4 col-form-label">Nombre</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputName2" placeholder="Nombre" required>
+                                <input type="text" class="form-control" id="inputNameN2" placeholder="Nombre" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-md-4 col-form-label">Email</label>
                             <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail2" placeholder="Email" required>
+                                <input type="email" class="form-control" id="inputEmailN2" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Fecha de nacimiento</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputDate2" placeholder="Fecha de nacimiento" required>
+                                <input type="text" class="form-control" id="inputDOB2" placeholder="Fecha de nacimiento" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Rol</label>
                             <div class="col-md-8">
-                                <select class="form-control" id="inputRol2" required>
+                                <select class="form-control" id="inputRolN2" required>
                                     <option value="">Seleccione un rol</option>
                                     @role('superadmin')
                                     <option value="1">Superadministrador</option>
@@ -177,7 +177,7 @@
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-md-4 col-form-label">Password</label>
                             <div class="col-md-8">
-                                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                                <input type="password" class="form-control" id="inputPassworNd" placeholder="Password">
                                 <small><b>**</b> Solo modificar en caso de querer cambiar la contraseña.</small>
                             </div>
                             
@@ -206,10 +206,10 @@
 </style>
 <script>
     $(document).ready( function () {
-        $( "#inputDate" ).datepicker({
+        $( "#inputDOB" ).datepicker({
             dateFormat: "yy-mm-dd"
         });
-        $( "#inputDate2" ).datepicker({
+        $( "#inputDOB2" ).datepicker({
             dateFormat: "yy-mm-dd"
         });
         $('#tabla').DataTable({
@@ -225,11 +225,11 @@
         $('#formNuevo').submit(function(e){
             e.preventDefault();
             var datos = {
-                name: $('#inputName').val(),
-                email: $('#inputEmail').val(),
-                password: $('#inputPassword').val(),
-                dob: $('#inputDate').val(),
-                role: $('#inputRol').val(),
+                name: $('#inputNameN').val(),
+                email: $('#inputEmailN').val(),
+                password: $('#inputPasswordN').val(),
+                dob: $('#inputDOB').val(),
+                role: $('#inputRolN').val(),
             };
             console.log(datos);
             $.ajax({
@@ -250,11 +250,11 @@
         $('#formEditar').submit(function(e){
             e.preventDefault();
             var datos = {
-                name: $('#inputName2').val(),
-                email: $('#inputEmail2').val(),
-                password: $('#inputPassword2').val(),
-                dob: $('#inputDate2').val(),
-                role: $('#inputRol2').val(),
+                name: $('#inputNameN2').val(),
+                email: $('#inputEmailN2').val(),
+                password: $('#inputPasswordN2').val(),
+                dob: $('#inputDOB2').val(),
+                role: $('#inputRolN2').val(),
             };
             console.log(datos);
             $.ajax({
@@ -293,10 +293,10 @@
             url: '/gestion/usuarios/' + id,
             type: 'GET',
         }).done(function(data){
-            $('#inputName2').val(data.name);
-            $('#inputEmail2').val(data.email);
-            $('#inputDate2').val(data.dob);
-            $('#inputRol2').val(data.role.id);
+            $('#inputNameN2').val(data.name);
+            $('#inputEmailN2').val(data.email);
+            $('#inputDOB2').val(data.dob);
+            $('#inputRolN2').val(data.role.id);
             $('#id_usuario').val(data.id)
             $('#editarModal').modal('show');
         });
