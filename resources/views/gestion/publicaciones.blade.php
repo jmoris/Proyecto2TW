@@ -35,19 +35,23 @@
                                     <table id="tabla" class="table dt-responsive" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th width="40%">Titulo</th>
-                                                <th>Fecha creación</th>
+                                                <th width="1em" class="min-desktop">Img</th>
+                                                <th>Titulo</th>
                                                 <th>Autor</th>
-                                                <th>Estado</th>
-                                                <th>Accion</th>
+                                                <th width="1em">Visitas</th>
+                                                <th width="1em">Puntuación</th>
+                                                <th width="1em">Estado</th>
+                                                <th width="15%">Accion</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($entradas as $entrada)
                                                 <tr>
+                                                    <td> <img style="object-fit: cover;width:100px;height:60px; " src="{{$entrada->image_path}}"></td>
                                                     <td>{{ $entrada->title }}</td>
-                                                    <td>{{ $entrada->created_at }}</td>
                                                     <td>{{ $entrada->user->name }}</td>
+                                                    <td>{{ $entrada->views }}</td>
+                                                    <td>{{ (($entrada->votes>0)?$entrada->votescore/$entrada->votes:0) }}</td>
                                                     <td>
                                                         @if($entrada->status)
                                                         <span class="badge badge-pill badge-success">Activo</span>
@@ -90,6 +94,23 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Autor</label>
+                                <div class="col-sm-4">
+                                <select id="inputAutor" class="form-control" required>
+                                    <option value="">Seleccione un autor</option>
+                                    @foreach($usuarios as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->name}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Fch. publicacion</label>
+                                <div class="ml-0 pl-0  col-sm-3">
+                                <input type="text" class="form-control" id="inputFecha" value="{{ date('Y-m-d') }}" placeholder="Fecha de publicacion" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
                                 <label for="inputEmail3" class="col-md-2 col-form-label">Imagen</label>
                                 <div class="col-md-10">
                                     <div class="custom-file">
@@ -112,7 +133,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
-                            <div id="editor" style="height: 40vh">
+                            <div id="editor" style="height: 38vh">
                             </div>
                         </div>
                     </div>
@@ -146,6 +167,23 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Autor</label>
+                                <div class="col-sm-4">
+                                <select id="inputAutor2" class="form-control" required>
+                                    <option value="">Seleccione un autor</option>
+                                    @foreach($usuarios as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->name}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Fch. publicacion</label>
+                                <div class="ml-0 pl-0  col-sm-3">
+                                <input type="text" class="form-control" id="inputFecha2" placeholder="Fecha de publicacion" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
                                 <label for="inputEmail3" class="col-md-2 col-form-label">Imagen</label>
                                 <div class="col-md-10">
                                     <div class="custom-file">
@@ -168,7 +206,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
-                            <div id="editor2" style="height: 40vh">
+                            <div id="editor2" style="height: 38vh">
                             </div>
                         </div>
                     </div>
@@ -202,6 +240,12 @@
     var quill2 = null;
     Quill.register("modules/imageUploader", ImageUploader);
     $(document).ready( function () {
+        $( "#inputFecha" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $( "#inputFecha2" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
         $('#tabla').DataTable({
             language: { 
                 url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
@@ -316,6 +360,8 @@
             fd.append('content', content);
             var cats = $('#inputCategorias').val();
             fd.append('categorias', cats);
+            fd.append('author', $('#inputAutor').val());
+            fd.append('date', $('#inputFecha').val());
             $.ajax({
                 data:fd,
                 url: '/gestion/publicaciones',
@@ -347,7 +393,8 @@
             fd2.append('content', content);
             var cats = $('#inputCategorias2').val();
             fd2.append('categorias', cats);
-            console.log(fd2);
+            fd2.append('author', $('#inputAutor2').val());
+            fd2.append('date', $('#inputFecha2').val());
             $.ajax({
                 data:fd2,
                 url: '/gestion/publicaciones/' + $('#id_publicacion').val(),
@@ -386,6 +433,8 @@
             type: 'GET',
         }).done(function(data){
             $('#inputTitle2').val(data.title);
+            $('#inputFecha2').val(getFormattedDate(data.created_at));
+            $('#inputAutor2').val(data.author_id);
             $.each(data.categorias, function(i,e){
                 $("#inputCategorias2 option[value='" + e + "']").prop("selected", true);
             });
@@ -394,6 +443,15 @@
             $('#editarModal').modal('show');
         });
 
+    }
+
+    function getFormattedDate(fecha) {
+        let date = new Date(fecha);
+        let year = date.getFullYear();
+        let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+  
+        return year + '-' + month + '-' + day;
     }
 </script>
 @endsection

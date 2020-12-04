@@ -133,7 +133,8 @@ class GestionController extends Controller
     public function vistaPublicaciones(){
         $entradas = Entrada::all();
         $categorias = Categoria::all();
-        return view('gestion.publicaciones', ['entradas' => $entradas, 'categorias' => $categorias]);
+        $usuarios = User::where('status', true)->get();
+        return view('gestion.publicaciones', ['entradas' => $entradas, 'categorias' => $categorias, 'usuarios' => $usuarios]);
     }
 
     public function addPublicacion(Request $request){
@@ -141,6 +142,8 @@ class GestionController extends Controller
             'title' => 'required',
             'content' => 'required',
             'image' => 'required',
+            'date' => 'required',
+            'author' => 'required',
             'categorias' => ''
         ]);
         if ($validator->fails()) {
@@ -153,7 +156,8 @@ class GestionController extends Controller
         $entry = new Entrada();
         $entry->title = $request->title;
         $entry->content = $request->content;
-        $entry->author_id = \Auth::user()->id;
+        $entry->author_id = $request->author;
+        $entry->created_at = date('Y-m-d', strtotime($request->date));
         $entry->image_path = $upldimg['data']['url'];
         $entry->save();
         if($request->categorias!=null||$request->categorias!=''){
@@ -174,6 +178,8 @@ class GestionController extends Controller
             'title' => 'required',
             'content' => 'required',
             'image' => '',
+            'date' => 'required',
+            'author' => 'required',
             'categorias' => ''
         ]);
         if ($validator->fails()) {
@@ -188,7 +194,8 @@ class GestionController extends Controller
         $entry = Entrada::find($id);
         $entry->title = $request->title;
         $entry->content = $request->content;
-        $entry->author_id = \Auth::user()->id;
+        $entry->author_id = $request->author;
+        $entry->created_at = date('Y-m-d', strtotime($request->date));
         $entry->image_path = ($upldimg!=null)?$upldimg['data']['url']:$entry->image_path;
         $entry->save();
 
