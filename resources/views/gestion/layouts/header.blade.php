@@ -73,17 +73,17 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"> {{ Auth::user()->name }}</a>
+                            <a class="nav-link dropdown-toggle text-black waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/img/person.png" alt="user" class="rounded-circle" width="31"> {{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
-                                    <div class=""><img src="../assets/images/users/1.jpg" alt="user" class="rounded" width="80"></div>
+                                    <div class=""><img src="/img/person.png" alt="user" class="rounded" width="80"></div>
                                     <div class="ml-2">
                                         <h4 class="mb-0">{{ Auth::user()->name }}</h4>
                                         <p class=" mb-0">{{ Auth::user()->email }}</p>
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i> Mi cuenta</a>
+                                <a class="dropdown-item" onclick="$('#cuentaModal').modal('show')" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i> Mi cuenta</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off mr-1 ml-1"></i> Cerrar sesión</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -136,3 +136,82 @@
             </div>
             <!-- End Sidebar scroll-->
         </aside>
+                   <!-- Modal nuevo -->
+                   <div class="modal fade" id="cuentaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mi cuenta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formCuenta">
+                            <input type="hidden" id="id_usuario" value="-1"/>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-md-4 col-form-label">Nombre</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Nombre" value="{{ \Auth::user()->name }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-md-4 col-form-label">Email</label>
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{ \Auth::user()->email }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-md-4 col-form-label">Fch. nacimiento</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputDate" value="{{ date('Y-m-d', strtotime(\Auth::user()->dob)) }}" placeholder="Fecha de nacimiento" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-md-4 col-form-label">Password</label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                    <small><b>**</b> Solo modificar en caso de querer cambiar la contraseña.</small>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function(){
+                    $('#formCuenta').submit(function(e){
+                    e.preventDefault();
+                    var datos = {
+                        name: $('#inputName').val(),
+                        email: $('#inputEmail').val(),
+                        password: $('#inputPassword').val(),
+                        role: {{\Auth::user()->roles[0]->id}},
+                        dob: $('#inputDate').val(),
+                    };
+                    console.log(datos);
+                    $.ajax({
+                        data:datos,
+                        url: '/gestion/usuarios/{{\Auth::user()->id}}',
+                        type: 'PUT',
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    }).done(function(data){
+                        if(data.status == 'ok'){
+                            alert(data.msg);
+                            location.reload();
+                        }else{
+                            alert(data.msg);
+                        }
+                    });
+                });
+                });
+                
+            </script>
+

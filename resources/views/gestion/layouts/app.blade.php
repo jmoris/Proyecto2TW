@@ -27,14 +27,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-</head>
-
-<body>
-    @include('gestion.layouts.header')
-    <div class="page-wrapper">
-        @yield('contenido')
-    </div>
-    @include('gestion.layouts.footer')
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -69,6 +61,15 @@
     <!-- Main Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+    @include('gestion.layouts.header')
+    <div class="page-wrapper">
+        @yield('contenido')
+    </div>
+    @include('gestion.layouts.footer')
+
     @yield('scripts')
 </body>
 

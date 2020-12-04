@@ -47,7 +47,7 @@
         @include('web_principal.layout.header')
         @yield('contenido')
         @include('web_principal.layout.footer')
-
+ 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
@@ -74,6 +74,7 @@
         <script src="/js/gmaps.min.js"></script>
         <script src="/js/theme.js"></script>
         <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5fc6a8e9cabef10011d3fa3e&product=inline-share-buttons" async="async"></script>
+
         @yield('scripts')
     </body>
 </html>
