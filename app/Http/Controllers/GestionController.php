@@ -74,9 +74,11 @@ class GestionController extends Controller
             'email' => 'required|email',
             'password' => '',
             'dob' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'image' => ''
         ]);
         if ($validator->fails()) {
+            return $validator->errors();
             return response()->json([
                 'status' => 'error',
                 'msg' => 'Todos los campos son requeridos.'
@@ -87,6 +89,10 @@ class GestionController extends Controller
         $user->email = $request->email;
         if(isset($request->password)){
             $user->password = bcrypt($request->password);
+        }
+        if(isset($request->image)){
+            $upldimg = $this->save_record_image($request->image, $request->image->getClientOriginalName());
+            $user->image_path = $upldimg['data']['url'];;
         }
         $user->dob = date('Y-m-d', strtotime($request->dob));
         $user->save();

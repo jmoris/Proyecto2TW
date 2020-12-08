@@ -35,6 +35,7 @@ Route::prefix('gestion')->middleware(['auth', 'checkuser'])->group(function () {
         Route::get('/usuarios/{id}', [App\Http\Controllers\GestionController::class, 'getUsuario']);
         Route::post('/usuarios', [App\Http\Controllers\GestionController::class, 'addUsuario']);
         Route::put('/usuarios/{id}', [App\Http\Controllers\GestionController::class, 'updateUsuario']);
+        Route::post('/usuarios/editar/{id}', [App\Http\Controllers\GestionController::class, 'updateUsuario']);
         Route::post('/usuarios/habilitar', [App\Http\Controllers\GestionController::class, 'deleteUsuario']);
     });
 

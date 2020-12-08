@@ -32,7 +32,7 @@
                                         <h2>{{$entrada->title}}</h2>
                                 </div>
                                     <ul style="list-style:none!important;display:inline-block;" class="blog_meta list col-md-10 col-lg-10">
-                                        <li style="display:inline!important;"><a href="#"><i class="lnr lnr-user"></i> {{ $entrada->user->name }}</a></li>
+                                        <li style="display:inline!important;"><a href="#"> <img style="object-fit: cover;width:2em;height:2em;" src="{{ (($entrada->user->image_path!=null)?$entrada->user->image_path:'/img/person.png') }}" alt="user" class="rounded-circle"> {{ $entrada->user->name }}</a></li>
                                         <li style="display:inline!important;"><a href="#"><i class="lnr lnr-calendar-full"></i> {{ date("F j, Y", strtotime($entrada->created_at)) }}</a></li>
                                         <li style="display:inline!important;"><a href="#"><i class="lnr lnr-eye"></i> {{ $entrada->views }} vistas</a></li>
                                     </ul>

@@ -73,10 +73,10 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/img/person.png" alt="user" class="rounded-circle" width="31"> {{ Auth::user()->name }}</a>
+                            <a class="nav-link dropdown-toggle text-black waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="object-fit: cover;width:2em;height:2em;" src="{{ ((\Auth::user()->image_path!=null)?\Auth::user()->image_path:'/img/person.png') }}" alt="user" class="rounded-circle"> {{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
-                                    <div class=""><img src="/img/person.png" alt="user" class="rounded" width="80"></div>
+                                    <div class=""><img src="{{ ((\Auth::user()->image_path!=null)?\Auth::user()->image_path:'/img/person.png') }}" alt="user" class="rounded" style="object-fit: cover;width:6em;height:6em;"></div>
                                     <div class="ml-2">
                                         <h4 class="mb-0">{{ Auth::user()->name }}</h4>
                                         <p class=" mb-0">{{ Auth::user()->email }}</p>
@@ -149,6 +149,13 @@
                     <div class="modal-body">
                         <form id="formCuenta">
                             <input type="hidden" id="id_usuario" value="-1"/>
+                            <div class="form-group text-center">
+                                    <img style="object-fit: cover;width:12em;height:12em;border:1px solid gainsboro;" src="{{ ((\Auth::user()->image_path!=null)?\Auth::user()->image_path:'/img/person.png') }}">
+                                    <div class="custom-file mt-2">
+                                        <input type="file" class="custom-file-input" id="inputImagenPerfil">
+                                        <label class="custom-file-label" for="customFile">Seleccione una imagen</label>
+                                    </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-md-4 col-form-label">Nombre</label>
                                 <div class="col-md-8">
@@ -188,20 +195,29 @@
             <script>
                 $(document).ready(function(){
                     $('#formCuenta').submit(function(e){
-                    e.preventDefault();
-                    var datos = {
-                        name: $('#inputName').val(),
-                        email: $('#inputEmail').val(),
-                        password: $('#inputPassword').val(),
-                        role: {{\Auth::user()->roles[0]->id}},
-                        dob: $('#inputDate').val(),
-                    };
-                    console.log(datos);
+                        e.preventDefault();
+                        
+                        var fd = new FormData();
+                        var files = $('#inputImagenPerfil')[0].files;
+                    
+                        if(files.length > 0 ){
+                            fd.append('image',files[0]);
+                        }
+
+                        fd.append('name', $('#inputName').val());
+                        fd.append('email', $('#inputEmail').val());
+                        if($('#inputPassword').val() != '')
+                            fd.append('password', $('#inputPassword').val());
+                        fd.append('role', '{{\Auth::user()->roles[0]->id}}');
+                        fd.append('dob', $('#inputDate').val());
+
                     $.ajax({
-                        data:datos,
-                        url: '/gestion/usuarios/{{\Auth::user()->id}}',
-                        type: 'PUT',
+                        data:fd,
+                        url: '/gestion/usuarios/editar/{{\Auth::user()->id}}',
+                        type: 'POST',
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        contentType: false,
+                        processData: false,
                     }).done(function(data){
                         if(data.status == 'ok'){
                             alert(data.msg);
