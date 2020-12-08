@@ -96,7 +96,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-md-4 col-form-label">Nombre</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Nombre" required>
+                                <input type="text" class="form-control" id="inputNameCategoria" placeholder="Nombre" required>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
         $('#frmNuevo').submit(function(e){
             e.preventDefault();
             var data = {
-                name : $('#inputName').val(),
+                name : $('#inputNameCategoria').val(),
             };
             $.ajax({
                 url: 'configuracion/categoria',
