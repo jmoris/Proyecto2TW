@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-12 mt-3 mb-3">
                         <form>
-                            <textarea rows="2" cols="50" id="message"></textarea>
+                            <textarea class="form-control" rows="2" id="message"></textarea>
                             <br />
                             <button type="submit" class="btn btn-primary">Enviar mensaje</button>
                             </form>
