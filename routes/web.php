@@ -21,7 +21,9 @@ Route::post('contacto', [App\Http\Controllers\WebController::class, 'enviarConta
 Route::get('blog', [App\Http\Controllers\WebController::class, 'blog']);
 Route::get('blog/{id}', [App\Http\Controllers\WebController::class, 'blogDetail']);
 Route::post('blog/{id}/puntuar', [App\Http\Controllers\WebController::class, 'blogRating']);
-
+Route::get('chat', function(){
+    return view('chat');
+});
 Route::prefix('gestion')->middleware(['auth', 'checkuser'])->group(function () {
     Route::get('/home', [App\Http\Controllers\GestionController::class, 'index']);
     Route::middleware('role:superadmin')->group(function () {
